@@ -8,29 +8,6 @@ library(FactoMineR)
 setwd("~/habitat_restoration_networks")
 
 
-networks = c("C_0.1_R_1_S_20", "C_0.1_R_2_S_20", "C_0.1_R_3_S_20", "C_0.1_R_4_S_20", "C_0.1_R_5_S_20", 
-             "C_0.2_R_1_S_20", "C_0.2_R_2_S_20", "C_0.2_R_3_S_20", "C_0.2_R_4_S_20", "C_0.2_R_5_S_20",
-             "C_0.3_R_1_S_20", "C_0.3_R_2_S_20", "C_0.3_R_3_S_20", "C_0.3_R_4_S_20", "C_0.3_R_5_S_20", 
-             "C_0.4_R_1_S_20", "C_0.4_R_2_S_20", "C_0.4_R_3_S_20", "C_0.4_R_4_S_20", "C_0.4_R_5_S_20",
-             "C_0.1_R_1_S_40", "C_0.1_R_2_S_40", "C_0.1_R_3_S_40", "C_0.1_R_4_S_40", "C_0.1_R_5_S_40", 
-             "C_0.2_R_1_S_40", "C_0.2_R_2_S_40", "C_0.2_R_3_S_40", "C_0.2_R_4_S_40", "C_0.2_R_5_S_40",
-             "C_0.3_R_1_S_40", "C_0.3_R_2_S_40", "C_0.3_R_3_S_40", "C_0.3_R_4_S_40", "C_0.3_R_5_S_40", 
-             "C_0.4_R_1_S_40", "C_0.4_R_2_S_40", "C_0.4_R_3_S_40", "C_0.4_R_4_S_40", "C_0.4_R_5_S_40",
-             "C_0.1_R_1_S_80", "C_0.1_R_2_S_80", "C_0.1_R_3_S_80", "C_0.1_R_4_S_80", "C_0.1_R_5_S_80", 
-             "C_0.2_R_1_S_80", "C_0.2_R_2_S_80", "C_0.2_R_3_S_80", "C_0.2_R_4_S_80", "C_0.2_R_5_S_80",
-             "C_0.3_R_1_S_80", "C_0.3_R_2_S_80", "C_0.3_R_3_S_80", "C_0.3_R_4_S_80", "C_0.3_R_5_S_80", 
-             "C_0.4_R_1_S_80", "C_0.4_R_2_S_80", "C_0.4_R_3_S_80", "C_0.4_R_4_S_80", "C_0.4_R_5_S_80")
-
-networks = c("M_SD_005", "M_SD_008", "M_SD_010", "M_SD_012", "M_SD_025",
-             "M_SD_002", "M_SD_007", "M_SD_014", "M_SD_016", "M_SD_027",
-             "M_PL_006", "M_PL_010", "M_PL_036", "M_PL_037", "M_PL_059",
-             "M_PL_025", "M_PL_033", "M_PL_039", "M_PL_046", "M_PL_051")
-
-networks = c("A_HP_015", "A_HP_035", "A_HP_028", "A_HP_005", "A_HP_021", 
-             "A_HP_007", "A_HP_032", "A_HP_012", "A_HP_008", "A_HP_047", 
-             "A_HP_002", "A_HP_033", "A_HP_042", "A_HP_046", "A_HP_025",
-             "A_HP_050", "A_PH_007", "A_PH_004", "A_PH_005", "A_PH_006")
-
 networks = c("M_SD_005", "M_SD_008", "M_SD_010", "M_SD_012", "M_SD_025",
              "M_SD_002", "M_SD_007", "M_SD_014", "M_SD_016", "M_SD_027",
              "M_PL_006", "M_PL_010", "M_PL_036", "M_PL_037", "M_PL_059",
@@ -230,13 +207,13 @@ for(network in networks){
 }
 
 # write out results
-write.csv(network_structure, paste0("Results/networks_combined/metanetwork_structure.csv"), row.names=FALSE)
-
+write.csv(network_structure, paste0("Results/networks_combined_M/metanetwork_structure.csv"), row.names=FALSE)
+write.csv(network_structure, paste0("Results/networks_combined_A/metanetwork_structure.csv"), row.names=FALSE)
 
 
 # PCA
 
-network_structure = fread("Results/networks_combined/metanetwork_structure.csv")
+network_structure = fread("Results/networks_combined_M/metanetwork_structure.csv")
 
 network_structure = network_structure %>%
   mutate(n_sp=n_res+n_con)
@@ -254,94 +231,5 @@ network_structure_pca = network_structure %>%
          PC1_obs_con_nest_mod=as.vector(pca_obs_con_nest_mod$ind$coord[,1]))
 
 # write out results
-write.csv(network_structure_pca, paste0("Results/networks_combined/metanetwork_structure_pca.csv"), row.names=FALSE)
-
-
-# ARTIFICIAL NETWORKS
-
-# pca_obs_nsp_con_nest_mod
-
-# PC1 = 71.45%; PC2 = 23.76%
-
-#           Dim.1       Dim.2      Dim.3      Dim.4
-#n_sp     -0.3381960  0.93983634 -0.0264060 0.04042071
-#con       0.9704397 -0.02626039 -0.1697226 0.16956242
-#nest_obs  0.9446082  0.15706580  0.2869680 0.02636245
-#mod_obs  -0.9537441 -0.20442317  0.1208890 0.18430748
-
-# pca_obs_con_nest_mod
-
-# PC1 = 92.70%; PC2 = 4.45%
-#           Dim.1       Dim.2      Dim.3
-#con       0.9617516 -0.22345614 0.15843379
-#nest_obs  0.9558978  0.28327253 0.07756327
-#mod_obs  -0.9706861  0.05755753 0.23335710
-
-
-
-# MUTUALISTIC NETWORKS
-
-# pca_obs_nsp_con_nest_mod
-
-# PC1 = 74.23%; PC2 = 18.71%
-
-#            Dim.1        Dim.2       Dim.3       Dim.4
-#n_sp     -0.6744115  0.729756262  0.06717529  0.09006877
-#con       0.9703564 -0.005450768 -0.12094028  0.20917004
-#nest_obs  0.9159063  0.124584952  0.38058389 -0.02738914
-#mod_obs  -0.8567486 -0.447432369  0.21700671  0.13672644
-
-# pca_obs_con_nest_mod
-
-# PC1 = 87.23%; PC2 = 7.96%
-
-#            Dim.1      Dim.2      Dim.3
-#con       0.9514593 0.02296306  0.3069168
-#nest_obs  0.9270152 0.33234186 -0.1737578
-#mod_obs  -0.9231103 0.35741598  0.1418494
-
-
-
-# ANTAGONISTIC NETWORKS
-
-# pca_obs_nsp_con_nest_mod
-
-# PC1 = 69.23%; PC2 = 21.45%
-
-#           Dim.1       Dim.2      Dim.3       Dim.4
-#n_sp     -0.5968142  0.79915919 0.03448746  0.06299189
-#con       0.9866786 -0.07531291 0.01367332  0.14354897
-#nest_obs  0.8606052  0.29457053 0.41007335 -0.06653338
-#mod_obs  -0.8360077 -0.35615734 0.41365629  0.05596034
-
-# pca_obs_con_nest_mod
-
-# PC1 = 83.76%; PC2 = 11.46%
-
-#             Dim.1      Dim.2      Dim.3
-#con       0.9523098 0.04879799  0.3012054
-#nest_obs  0.9044779 0.38226566 -0.1891896
-#mod_obs  -0.8875237 0.44192807  0.1303888
-
-
-
-# MUTUALISTIC & ANTAGONISTIC NETWORKS
-
-# pca_obs_nsp_con_nest_mod
-
-# PC1 = 70.84%; PC2 = 20.34%
-
-#           Dim.1      Dim.2       Dim.3       Dim.4
-#n_sp     -0.6183276  0.7791647  0.05962941  0.08377137
-#con       0.9756552 -0.0387096 -0.06264138  0.20657820
-#nest_obs  0.8838711  0.1966060  0.41942590 -0.06480633
-#mod_obs  -0.8473278 -0.4080734  0.32187251  0.10913190
-
-# pca_obs_con_nest_mod
-
-# PC1 = 85.03%; PC2 = 9.96%
-
-#           Dim.1      Dim.2      Dim.3
-#con       0.9502441 0.01061917  0.3113252
-#nest_obs  0.9091439 0.38029345 -0.1698067
-#mod_obs  -0.9063761 0.39258788  0.1560679
+write.csv(network_structure_pca, paste0("Results/networks_combined_M/metanetwork_structure_pca.csv"), row.names=FALSE)
+write.csv(network_structure_pca, paste0("Results/networks_combined_A/metanetwork_structure_pca.csv"), row.names=FALSE)
