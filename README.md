@@ -1,6 +1,6 @@
 # Habitat restoration and the recovery of metacommunities
 
-This repository contains the code used to perform simulations and postprocess the results for the manuscript "Habitat restoration and the recovery of metacommunities".
+This repository contains the code used to perform simulations and postprocess the results for the manuscript "Habitat restoration and the recovery of metacommunities" [Gawecka & Bascompte, 2023](https://doi.org/10.1111/1365-2664.14445).
 
 ## `Code`
 All code was created in either Julia version 1.4.2 or R version 3.6.2.
